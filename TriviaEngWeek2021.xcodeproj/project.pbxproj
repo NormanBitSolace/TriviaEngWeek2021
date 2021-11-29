@@ -33,6 +33,7 @@
 		201906E827556BCF00962D1E /* TriviaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaModel.swift; sourceTree = "<group>"; };
 		201906EA27556C4A00962D1E /* HtmlDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlDecoding.swift; sourceTree = "<group>"; };
 		201906EC27556DA300962D1E /* PlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewModel.swift; sourceTree = "<group>"; };
+		20862BC127559A8F0005CAF2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +66,7 @@
 		201906D127553DAC00962D1E /* TriviaEngWeek2021 */ = {
 			isa = PBXGroup;
 			children = (
+				20862BC127559A8F0005CAF2 /* .gitignore */,
 				201906E6275563D700962D1E /* AnsyncDataTest.swift */,
 				201906D427553DAC00962D1E /* ContentView.swift */,
 				201906EA27556C4A00962D1E /* HtmlDecoding.swift */,

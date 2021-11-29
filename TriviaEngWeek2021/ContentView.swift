@@ -5,7 +5,8 @@ struct ContentView: View {
     private var viewModel = PlayViewModel()
 
     var body: some View {
-        MainView()
+        PlayView()
+            .environmentObject(viewModel)
             .task {
                 await viewModel.fetch()
             }
