@@ -14,6 +14,10 @@
 		201906E127553E0B00962D1E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201906E027553E0B00962D1E /* MainView.swift */; };
 		201906E3275549AF00962D1E /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201906E2275549AF00962D1E /* PlayView.swift */; };
 		201906E5275549C400962D1E /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201906E4275549C400962D1E /* OptionsView.swift */; };
+		201906E7275563D700962D1E /* AnsyncDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201906E6275563D700962D1E /* AnsyncDataTest.swift */; };
+		201906E927556BCF00962D1E /* TriviaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201906E827556BCF00962D1E /* TriviaModel.swift */; };
+		201906EB27556C4A00962D1E /* HtmlDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201906EA27556C4A00962D1E /* HtmlDecoding.swift */; };
+		201906ED27556DA300962D1E /* PlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201906EC27556DA300962D1E /* PlayViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		201906E027553E0B00962D1E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		201906E2275549AF00962D1E /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		201906E4275549C400962D1E /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
+		201906E6275563D700962D1E /* AnsyncDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsyncDataTest.swift; sourceTree = "<group>"; };
+		201906E827556BCF00962D1E /* TriviaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaModel.swift; sourceTree = "<group>"; };
+		201906EA27556C4A00962D1E /* HtmlDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlDecoding.swift; sourceTree = "<group>"; };
+		201906EC27556DA300962D1E /* PlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,11 +65,15 @@
 		201906D127553DAC00962D1E /* TriviaEngWeek2021 */ = {
 			isa = PBXGroup;
 			children = (
-				201906D227553DAC00962D1E /* TriviaEngWeek2021App.swift */,
+				201906E6275563D700962D1E /* AnsyncDataTest.swift */,
 				201906D427553DAC00962D1E /* ContentView.swift */,
+				201906EA27556C4A00962D1E /* HtmlDecoding.swift */,
 				201906E027553E0B00962D1E /* MainView.swift */,
-				201906E2275549AF00962D1E /* PlayView.swift */,
 				201906E4275549C400962D1E /* OptionsView.swift */,
+				201906E2275549AF00962D1E /* PlayView.swift */,
+				201906EC27556DA300962D1E /* PlayViewModel.swift */,
+				201906D227553DAC00962D1E /* TriviaEngWeek2021App.swift */,
+				201906E827556BCF00962D1E /* TriviaModel.swift */,
 				201906D627553DAE00962D1E /* Assets.xcassets */,
 				201906D827553DAE00962D1E /* Preview Content */,
 			);
@@ -148,9 +160,13 @@
 			files = (
 				201906D527553DAC00962D1E /* ContentView.swift in Sources */,
 				201906E127553E0B00962D1E /* MainView.swift in Sources */,
+				201906E927556BCF00962D1E /* TriviaModel.swift in Sources */,
 				201906E3275549AF00962D1E /* PlayView.swift in Sources */,
+				201906E7275563D700962D1E /* AnsyncDataTest.swift in Sources */,
 				201906E5275549C400962D1E /* OptionsView.swift in Sources */,
+				201906ED27556DA300962D1E /* PlayViewModel.swift in Sources */,
 				201906D327553DAC00962D1E /* TriviaEngWeek2021App.swift in Sources */,
+				201906EB27556C4A00962D1E /* HtmlDecoding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +304,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -317,7 +333,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

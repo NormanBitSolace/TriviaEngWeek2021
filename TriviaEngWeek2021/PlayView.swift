@@ -23,8 +23,6 @@ struct PlayView: View {
 
 struct PlayView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            PlayView()
-        }
+        PlayView()
     }
 }

@@ -1,17 +1,14 @@
-//
-//  ContentView.swift
-//  TriviaEngWeek2021
-//
-//  Created by Norman Basham on 11/29/21.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+
+    private var viewModel = PlayViewModel()
+
     var body: some View {
-        NavigationView {
-            MainView()
-        }
+        MainView()
+            .task {
+                await viewModel.fetch()
+            }
     }
 }
 
