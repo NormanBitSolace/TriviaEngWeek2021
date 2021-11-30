@@ -14,7 +14,6 @@ class PlayViewModel: ObservableObject {
         Task {
             do {
                 questionAnswers = try await Test.fetchTrivia()
-                print(questionAnswers)
             } catch {
                 print(error.localizedDescription)
             }

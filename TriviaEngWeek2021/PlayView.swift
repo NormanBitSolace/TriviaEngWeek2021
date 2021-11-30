@@ -32,6 +32,7 @@ struct PlayView: View {
 
     private func accessibityText(_ triviaRecord: QuestionAnswersViewModel) -> String {
         var text = """
+        The category is \(triviaRecord.title),,
         Question,
         \(triviaRecord.question),,
         There are \(triviaRecord.answers.count) choices to pick from,,

@@ -10,35 +10,30 @@ struct QuestionAnswersViewModel: Codable {
 
 extension QuestionAnswersViewModel {
     init(with model: QuestionAnswersModel) {
-        self.title = String(htmlEncodedString: model.category)
+        //  This is the wrong place to decode, should happen initially on model
+        self.title = model.category.decoded
         self.level = model.difficulty.capitalized
-        self.question = String(htmlEncodedString: model.question)
-        self.answers = ([model.correctAnswer] + model.incorrectAnswers).shuffled().map { String(htmlEncodedString: $0) }
+        self.question = model.question.decoded
+        self.answers = ([model.correctAnswer] + model.incorrectAnswers).shuffled().map { $0.decoded }
         self.correctAnswerIndex = answers.firstIndex(where: { answer in
-            answer == String(htmlEncodedString: model.correctAnswer)
+            answer == model.correctAnswer.decoded
         }) ?? 0
     }
 }
 
 extension String {
 
-    init(htmlEncodedString: String) {
-
-        guard let data = htmlEncodedString.data(using: .utf8) else {
+    var decoded: String {
+        guard let data = self.data(using: .utf8) else {
             fatalError()
         }
-
         let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
             .documentType: NSAttributedString.DocumentType.html,
             .characterEncoding: String.Encoding.utf8.rawValue
         ]
-
         guard let attributedString = try? NSAttributedString(data: data, options: options, documentAttributes: nil) else {
             fatalError()
         }
-
-        self.init(attributedString.string)
-
+        return attributedString.string
     }
-
 }

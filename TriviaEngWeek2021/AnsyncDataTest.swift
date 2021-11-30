@@ -9,7 +9,6 @@ enum NetworkError: Error {
 @MainActor struct Test {
 
     static func fetchTrivia(numQuestions: Int = 10) async throws -> [QuestionAnswersViewModel] {
-//        let url = URL(string: "https://opentdb.com/api.php?amount=\(numQuestions)")!
         //  &encode=base64, &encode=url3986
         let url = URL(string: "https://opentdb.com/api.php?amount=10&type=multiple")!
         let (data, response) = try await URLSession.shared.data(from: url)
@@ -20,7 +19,7 @@ enum NetworkError: Error {
             throw NetworkError.httpError(httpResponse.statusCode)
         }
         let decoder = JSONDecoder()
-//        decoder.dataDecodingStrategy = .
+//        decoder.dataDecodingStrategy = .base64
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         if let triviaRecord = try? decoder.decode(OpenTriviaModel.self, from: data) {
             return triviaRecord.results.map { QuestionAnswersViewModel(with: $0)}
