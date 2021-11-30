@@ -4,39 +4,40 @@ struct PlayView: View {
     @EnvironmentObject var viewModel: PlayViewModel
 
     var body: some View {
-        VStack {
-            Text("Question")
-            Button("Answer 1") {
-                print("Answer 1")
-            }
-            Button("Answer 2") {
-                print("Answer 2")
-            }
-            Button("Answer 3") {
-                print("Answer 3")
-            }
-            Button("Answer 4") {
-                print("Answer 4")
+        if let triviaRecord = viewModel.currentRecord {
+            triviaView(triviaRecord)
+        } else {
+            loadingView
+        }
+    }
+
+    private var loadingView: some View {
+        ProgressView()
+    }
+
+    private func triviaView(_ triviaRecord: QuestionAnswersViewModel) -> some View {
+        return VStack {
+            Text(triviaRecord.title)
+            Text(triviaRecord.question)
+            ForEach(0..<triviaRecord.answers.count) { index in
+                Button(triviaRecord.answers[index]) {
+                    print("Answer \(index)")
+                }
             }
         }
         .accessibilityElement(children: .ignore)
-        .accessibility(label: Text(accessibityText(model: viewModel.currentRecord)))
-        .navigationTitle("Entertainment: Comics")
+        .accessibility(label: Text(accessibityText(triviaRecord)))
+
     }
 
-    private func accessibityText(model: TriviaModel?) -> String {
-        guard let model = model else { return "There was an error." }
+    private func accessibityText(_ triviaRecord: QuestionAnswersViewModel) -> String {
         var text = """
         Question,
-        \(model.question),,
+        \(triviaRecord.question),,
+        There are \(triviaRecord.answers.count) choices to pick from,,
         """
-        if model.isTrueFalse() {
-            text += "True, or, False"
-        } else {
-            text += "There are \(model.answers.count) choices to pick from,,"
-            for answer in model.answers {
-                text += "\(answer),"
-            }
+        for answer in triviaRecord.answers {
+            text += "\(answer),"
         }
 
         return text

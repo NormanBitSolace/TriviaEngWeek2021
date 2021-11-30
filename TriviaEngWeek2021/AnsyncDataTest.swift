@@ -8,8 +8,10 @@ enum NetworkError: Error {
 
 @MainActor struct Test {
 
-    static func fetchTrivia(numQuestions: Int = 10) async throws -> [TriviaModel] {
-        let url = URL(string: "https://opentdb.com/api.php?amount=\(numQuestions)")!
+    static func fetchTrivia(numQuestions: Int = 10) async throws -> [QuestionAnswersViewModel] {
+//        let url = URL(string: "https://opentdb.com/api.php?amount=\(numQuestions)")!
+        //  &encode=base64, &encode=url3986
+        let url = URL(string: "https://opentdb.com/api.php?amount=10&type=multiple")!
         let (data, response) = try await URLSession.shared.data(from: url)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.urlError
@@ -17,9 +19,11 @@ enum NetworkError: Error {
         guard (200..<300).contains(httpResponse.statusCode) else {
             throw NetworkError.httpError(httpResponse.statusCode)
         }
-        if let jsonObj = try? JSONSerialization.jsonObject(with: data, options: []),
-           let dict = jsonObj as? [String: Any] {
-            return TriviaModel.parseJson(dict: dict)
+        let decoder = JSONDecoder()
+//        decoder.dataDecodingStrategy = .
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        if let triviaRecord = try? decoder.decode(OpenTriviaModel.self, from: data) {
+            return triviaRecord.results.map { QuestionAnswersViewModel(with: $0)}
         } else {
             throw NetworkError.corruptDataError
         }

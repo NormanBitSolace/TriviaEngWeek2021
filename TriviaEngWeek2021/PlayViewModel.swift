@@ -1,11 +1,11 @@
 import Combine
 
 class PlayViewModel: ObservableObject {
-    @Published var triviaRecords: [TriviaModel] = []
+    @Published var questionAnswers: [QuestionAnswersViewModel] = []
     var currentRound = 0
-    var currentRecord: TriviaModel? {
-        guard currentRound < triviaRecords.count else { return nil }
-        return triviaRecords[currentRound]
+    var currentRecord: QuestionAnswersViewModel? {
+        guard currentRound < questionAnswers.count else { return nil }
+        return questionAnswers[currentRound]
     }
 
     init() {}
@@ -13,8 +13,8 @@ class PlayViewModel: ObservableObject {
     func fetch() async {
         Task {
             do {
-                triviaRecords = try await Test.fetchTrivia()
-                print(triviaRecords)
+                questionAnswers = try await Test.fetchTrivia()
+                print(questionAnswers)
             } catch {
                 print(error.localizedDescription)
             }
