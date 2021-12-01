@@ -59,9 +59,9 @@ struct MainView: View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: [
-                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
-                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
-                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12)
+                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12, alignment: .top),
+                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12, alignment: .top),
+                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12, alignment: .top)
                 ], spacing: 12) {
                     ForEach(0..<24, id: \.self) { number in
                         VStack {
