@@ -41,12 +41,11 @@ class MainViewModel: ObservableObject {
         guard let url = URL(string: urlString) else { return }
         
         do {
-            let (data1, _) = try await URLSession.shared.data(from: url)
-            let (data2, _) = try await URLSession.shared.data(from: url)
-            let randomDogImageDataObject1 = try JSONDecoder().decode(RandomDogImageDataObject.self, from: data1)
-            let randomDogImageDataObject2 = try JSONDecoder().decode(RandomDogImageDataObject.self, from: data2)
-            randomDogImageDataObjects.append(randomDogImageDataObject1)
-            randomDogImageDataObjects.append(randomDogImageDataObject2)
+            for _ in 0..<24 {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                let randomDogImageDataObject = try JSONDecoder().decode(RandomDogImageDataObject.self, from: data)
+                randomDogImageDataObjects.append(randomDogImageDataObject)
+            }
             isFetching = false
         } catch {
             isFetching = false
@@ -73,7 +72,7 @@ struct MainView: View {
                                 ProgressView()
                             } else {
                                 if let randomDogImageDataObjects = mainViewModel.randomDogImageDataObjects, !randomDogImageDataObjects.isEmpty {
-                                    let url = URL(string: randomDogImageDataObjects[0].message)
+                                    let url = URL(string: randomDogImageDataObjects[number].message)
                                     AsyncImage(url: url) { phase in
                                         if let image = phase.image {
                                             image
