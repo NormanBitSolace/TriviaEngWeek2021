@@ -37,23 +37,26 @@ struct MainView: View {
                     GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
                     GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12)
                 ], spacing: 12) {
-                    ForEach(0..<24, id: \.self) { num in
-                        if mainViewModel.isFetching {
-                            ProgressView()
-                        } else {
-                            AsyncImage(url: URL(string: mainViewModel.randomDogImageDataObject?.message ?? "")) { phase in
-                                if let image = phase.image {
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                } else if phase.error != nil {
-                                    Color.red
-                                } else {
-                                    Color.gray
+                    ForEach(0..<24, id: \.self) { number in
+                        VStack {
+                            if mainViewModel.isFetching {
+                                ProgressView()
+                            } else {
+                                AsyncImage(url: URL(string: mainViewModel.randomDogImageDataObject?.message ?? "")) { phase in
+                                    if let image = phase.image {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                    } else if phase.error != nil {
+                                        Color.red
+                                    } else {
+                                        Color.gray
+                                    }
                                 }
-                            }
-                                    .frame(maxWidth: 100, maxHeight: 100, alignment: .center)
+                                .frame(maxWidth: 100, maxHeight: 100, alignment: .center)
 
+                                Text("Category \(number + 1)")
+                            }
                         }
                     }
                 }
