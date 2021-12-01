@@ -16,10 +16,10 @@ import Foundation
 
 struct OpenTriviaModel: Codable {
     let responseCode: Int
-    let results: [QuestionAnswersModel]
+    let results: [TriviaModel]
 }
 
-struct QuestionAnswersModel: Codable {
+struct TriviaModel: Codable {
     let category: String
     let difficulty: String
     let question: String

@@ -1,9 +1,9 @@
 import Combine
 
 class PlayViewModel: ObservableObject {
-    @Published var questionAnswers: [QuestionAnswersViewModel] = []
+    @Published var questionAnswers: [TriviaViewModel] = []
     var currentRound = 0
-    var currentRecord: QuestionAnswersViewModel? {
+    var currentRecord: TriviaViewModel? {
         guard currentRound < questionAnswers.count else { return nil }
         return questionAnswers[currentRound]
     }

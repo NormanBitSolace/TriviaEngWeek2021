@@ -15,7 +15,7 @@ struct PlayView: View {
         ProgressView()
     }
 
-    private func triviaView(_ triviaRecord: QuestionAnswersViewModel) -> some View {
+    private func triviaView(_ triviaRecord: TriviaViewModel) -> some View {
         return VStack {
             Text(triviaRecord.title)
             Text(triviaRecord.question)
@@ -30,7 +30,7 @@ struct PlayView: View {
 
     }
 
-    private func accessibityText(_ triviaRecord: QuestionAnswersViewModel) -> String {
+    private func accessibityText(_ triviaRecord: TriviaViewModel) -> String {
         var text = """
         The category is \(triviaRecord.title),,
         Question,

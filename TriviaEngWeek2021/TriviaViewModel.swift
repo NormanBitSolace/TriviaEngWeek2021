@@ -1,6 +1,6 @@
 import Foundation
 
-struct QuestionAnswersViewModel: Codable {
+struct TriviaViewModel: Codable {
     let title: String
     let level: String
     let question: String
@@ -8,8 +8,8 @@ struct QuestionAnswersViewModel: Codable {
     let correctAnswerIndex: Int
 }
 
-extension QuestionAnswersViewModel {
-    init(with model: QuestionAnswersModel) {
+extension TriviaViewModel {
+    init(with model: TriviaModel) {
         //  This is the wrong place to decode, should happen initially on model
         self.title = model.category.decoded
         self.level = model.difficulty.capitalized
