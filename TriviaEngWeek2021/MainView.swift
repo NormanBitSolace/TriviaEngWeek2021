@@ -7,6 +7,32 @@ struct RandomDogImageDataObject: Decodable {
 class MainViewModel: ObservableObject {
     @Published var isFetching = false
     @Published var randomDogImageDataObject: RandomDogImageDataObject?
+    var categories = [
+        "General Knowledge",
+        "Entertainment: Books",
+        "Entertainment: Film",
+        "Entertainment: Music",
+        "Entertainment: Musicals & Theatres",
+        "Entertainment: Television",
+        "Entertainment: Video Games",
+        "Entertainment: Board Games",
+        "Science & Nature",
+        "Science: Computers",
+        "Science: Mathematics",
+        "Mythology",
+        "Sports",
+        "Geography",
+        "History",
+        "Politics",
+        "Art",
+        "Celebrities",
+        "Animals",
+        "Vehicles",
+        "Entertainment: Comics",
+        "Science: Gadgets",
+        "Entertainment: Japanese Anime & Manga",
+        "Entertainment: Cartoon & Animations"
+    ]
 
     @MainActor
     func fetchDogData() async {
@@ -55,7 +81,7 @@ struct MainView: View {
                                 }
                                 .frame(maxWidth: 100, maxHeight: 100, alignment: .center)
 
-                                Text("Category \(number + 1)")
+                                Text(mainViewModel.categories[number])
                             }
                         }
                     }
