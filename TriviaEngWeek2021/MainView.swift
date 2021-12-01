@@ -6,7 +6,7 @@ struct RandomDogImageDataObject: Decodable {
 
 class MainViewModel: ObservableObject {
     @Published var isFetching = false
-    @Published var randomDogImageDataObject: RandomDogImageDataObject?
+    @Published var randomDogImageDataObjects = [RandomDogImageDataObject]()
     var categories = [
         "General Knowledge",
         "Entertainment: Books",
@@ -41,8 +41,12 @@ class MainViewModel: ObservableObject {
         guard let url = URL(string: urlString) else { return }
         
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            self.randomDogImageDataObject = try JSONDecoder().decode(RandomDogImageDataObject.self, from: data)
+            let (data1, _) = try await URLSession.shared.data(from: url)
+            let (data2, _) = try await URLSession.shared.data(from: url)
+            let randomDogImageDataObject1 = try JSONDecoder().decode(RandomDogImageDataObject.self, from: data1)
+            let randomDogImageDataObject2 = try JSONDecoder().decode(RandomDogImageDataObject.self, from: data2)
+            randomDogImageDataObjects.append(randomDogImageDataObject1)
+            randomDogImageDataObjects.append(randomDogImageDataObject2)
             isFetching = false
         } catch {
             isFetching = false
@@ -68,18 +72,21 @@ struct MainView: View {
                             if mainViewModel.isFetching {
                                 ProgressView()
                             } else {
-                                AsyncImage(url: URL(string: mainViewModel.randomDogImageDataObject?.message ?? "")) { phase in
-                                    if let image = phase.image {
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                    } else if phase.error != nil {
-                                        Color.red
-                                    } else {
-                                        Color.gray
+                                if let randomDogImageDataObjects = mainViewModel.randomDogImageDataObjects, !randomDogImageDataObjects.isEmpty {
+                                    let url = URL(string: randomDogImageDataObjects[0].message)
+                                    AsyncImage(url: url) { phase in
+                                        if let image = phase.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                        } else if phase.error != nil {
+                                            Color.red
+                                        } else {
+                                            Color.gray
+                                        }
                                     }
+                                    .frame(maxWidth: 100, maxHeight: 100, alignment: .center)
                                 }
-                                .frame(maxWidth: 100, maxHeight: 100, alignment: .center)
 
                                 Text(mainViewModel.categories[number])
                                     .font(.system(size: 14, weight: .medium))
