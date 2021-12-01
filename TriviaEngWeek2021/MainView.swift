@@ -37,7 +37,7 @@ struct MainView: View {
                     GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
                     GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12)
                 ], spacing: 12) {
-                    ForEach(0..<3, id: \.self) { num in
+                    ForEach(0..<24, id: \.self) { num in
                         if mainViewModel.isFetching {
                             ProgressView()
                         } else {
