@@ -82,6 +82,7 @@ struct MainView: View {
                                 .frame(maxWidth: 100, maxHeight: 100, alignment: .center)
 
                                 Text(mainViewModel.categories[number])
+                                    .font(.system(size: 14, weight: .medium))
                             }
                         }
                     }
