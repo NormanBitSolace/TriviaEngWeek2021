@@ -31,18 +31,41 @@ struct MainView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                if mainViewModel.isFetching {
-                    ProgressView()
-                } else {
-                    AsyncImage(url: URL(string: mainViewModel.randomDogImageDataObject?.message ?? ""))
+            ScrollView {
+                LazyVGrid(columns: [
+                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
+                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
+                    GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12)
+                ], spacing: 12) {
+                    ForEach(0..<3, id: \.self) { num in
+                        if mainViewModel.isFetching {
+                            ProgressView()
+                        } else {
+                            AsyncImage(url: URL(string: mainViewModel.randomDogImageDataObject?.message ?? "")) { phase in
+                                if let image = phase.image {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } else if phase.error != nil {
+                                    Color.red
+                                } else {
+                                    Color.gray
+                                }
+                            }
+                                    .frame(maxWidth: 100, maxHeight: 100, alignment: .center)
+
+                        }
+                    }
                 }
-                NavigationLink("Play", destination: PlayView())
-                NavigationLink("Options", destination: OptionsView())
-            }
-            .navigationTitle("Trivia")
-            .task {
-                await mainViewModel.fetchDogData()
+                VStack {
+                    NavigationLink("Play", destination: PlayView())
+                    NavigationLink("Options", destination: OptionsView())
+                }
+                .navigationTitle("Trivia")
+                .task {
+                    await mainViewModel.fetchDogData()
+                }
+                .padding(.horizontal, 12)
             }
         }
     }
