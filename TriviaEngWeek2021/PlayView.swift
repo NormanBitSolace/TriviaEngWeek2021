@@ -4,7 +4,9 @@ struct PlayView: View {
     let categoryId: Int
     let categoryName: String
     @State var triviaModel: TriviaViewModel?
+    @State var showingAlert = false
     var networking = Networking()
+    @State var message = ""
 
     var body: some View {
         Group {
@@ -20,6 +22,9 @@ struct PlayView: View {
             } catch {
                 triviaModel = nil
             }
+        }
+        .alert(message, isPresented: $showingAlert) {
+            Button("OK") { }
         }
     }
 
@@ -48,11 +53,9 @@ struct PlayView: View {
     }
 
     private func handleTap(index: Int, model: TriviaViewModel) {
-        if index == triviaModel?.correctAnswerIndex {
-            print("Correct")
-        } else {
-            print("Incorrect")
-        }
+        let isCorrect = index == triviaModel?.correctAnswerIndex
+        message = isCorrect ? "Correct" : "Incorrect"
+        showingAlert = true
     }
 
     private func accessibityText(_ model: TriviaViewModel) -> String {
