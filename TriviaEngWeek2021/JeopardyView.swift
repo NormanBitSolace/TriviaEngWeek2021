@@ -1,14 +1,4 @@
-//
-//  JeopardyView.swift
-//  TriviaEngWeek2021
-//
-//  Created by Maribel Montejano on 12/1/21.
-//
-
 import SwiftUI
-
-// 1) list of categories
-// 2) grid
 
 struct JeopardyView: View {
     @EnvironmentObject var viewModel: ImageViewModel
