@@ -15,7 +15,11 @@ struct PlayView: View {
             }
         }
         .task {
-//            triviaModel = try await networking.fetchTrivia(category: categoryId)
+            do {
+                triviaModel = try await networking.fetchTrivia(category: categoryId)
+            } catch {
+                triviaModel = nil
+            }
         }
     }
 
@@ -23,29 +27,42 @@ struct PlayView: View {
         ProgressView()
     }
 
-    private func triviaView(_ triviaRecord: TriviaViewModel) -> some View {
+    private func triviaView(_ model: TriviaViewModel) -> some View {
         return VStack {
-            Text(triviaRecord.title)
-            Text(triviaRecord.question)
-            ForEach(0..<triviaRecord.answers.count) { index in
-                Button(triviaRecord.answers[index]) {
-                    print("Answer \(index)")
+            Text(model.title)
+                .font(.title)
+                .padding(.bottom)
+            Text(model.question)
+                .padding(.bottom)
+            ForEach(0..<model.answers.count) { index in
+                Button(model.answers[index]) {
+                    handleTap(index: index, model: model)
                 }
+                .padding()
             }
         }
+        .padding()
         .accessibilityElement(children: .ignore)
-        .accessibility(label: Text(accessibityText(triviaRecord)))
+        .accessibility(label: Text(accessibityText(model)))
 
     }
 
-    private func accessibityText(_ triviaRecord: TriviaViewModel) -> String {
+    private func handleTap(index: Int, model: TriviaViewModel) {
+        if index == triviaModel?.correctAnswerIndex {
+            print("Correct")
+        } else {
+            print("Incorrect")
+        }
+    }
+
+    private func accessibityText(_ model: TriviaViewModel) -> String {
         var text = """
-        The category is \(triviaRecord.title),,
+        The category is \(model.title),,
         Question,
-        \(triviaRecord.question),,
-        There are \(triviaRecord.answers.count) choices to pick from,,
+        \(model.question),,
+        There are \(model.answers.count) choices to pick from,,
         """
-        for answer in triviaRecord.answers {
+        for answer in model.answers {
             text += "\(answer),"
         }
 
