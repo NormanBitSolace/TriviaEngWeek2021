@@ -15,12 +15,10 @@ struct JeopardyView: View {
     }
 
     func cellView(category: CategoryModel, index: Int) -> some View {
-        VStack {
-            Button {
-                NavigationLink(category.name) {
-                    PlayView(categoryId: category.id, categoryName: category.name)
-                }
-            } label: {
+        NavigationLink {
+            PlayView(categoryId: category.id, categoryName: category.name)
+        } label: {
+            VStack {
                 AsyncImage(url: viewModel.url(forIndex: index)) { image in
                     image
                         .resizable()
@@ -29,11 +27,9 @@ struct JeopardyView: View {
                 } placeholder: {
                     ProgressView()
                 }
-                .frame(width: 100, height: 100, alignment: .top)
-
+                Text(category.name)
+                    .font(.system(size: 14, weight: .medium))
             }
-            Text(category.name)
-                .font(.system(size: 14, weight: .medium))
         }
     }
 }

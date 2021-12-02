@@ -22,7 +22,7 @@ struct ContentView: View {
     @State private var urlsDownloaded = false
     
     var body: some View {
-        VStack {
+        NavigationView {
             if let _ = viewModel.randomDogUrls {
                 JeopardyView()
                     .environmentObject(viewModel)
