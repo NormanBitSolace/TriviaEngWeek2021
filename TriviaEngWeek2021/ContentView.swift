@@ -24,9 +24,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if let _ = viewModel.randomDogUrls {
-                PlayView(categoryId: 27, categoryName: "Animals")
-//                JeopardyView()
-//                    .environmentObject(viewModel)
+//                PlayView(categoryId: 27, categoryName: "Animals")
+                JeopardyView()
+                    .environmentObject(viewModel)
             } else {
                 ProgressView()
             }
