@@ -1,45 +1,25 @@
 import SwiftUI
 
-struct RandomDogImageDataObject: Decodable {
-    let message, status: String
-}
-
+@MainActor
 class ImageViewModel: ObservableObject {
-    @Published var randomDogUrls: [String]?
+    @Published var randomDogUrls: [URL]?
+    private var networking = Networking()
     
     init() {
     }
     
     func url(forIndex index: Int) -> URL {
-//        guard index < randomDogUrls.count else { fatalError() }
-        if let urlString = randomDogUrls?[index] {
-            return URL(string: urlString)!
-        }
-        fatalError()
+        randomDogUrls![index]
     }
 
-    //  Make parallel
-    @MainActor
-    func fetchDogData() async {
-        let urlString = "https://dog.ceo/api/breeds/image/random"
-        guard let url = URL(string: urlString) else { return }
-        
-        do {
-            var urlStrings = [String]()
-            for _ in 0..<24 {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                let randomDogImageDataObject = try JSONDecoder().decode(RandomDogImageDataObject.self, from: data)
-                urlStrings.append(randomDogImageDataObject.message)
-            }
-            randomDogUrls = urlStrings
-        } catch {
-            print("Error fetching data: \(error)")
-        }
+    func fetchDogUrls() async {
+        randomDogUrls = await networking.getDogUrls()
     }
 }
 
 struct ContentView: View {
     @StateObject var viewModel = ImageViewModel()
+    @State private var urlsDownloaded = false
     
     var body: some View {
         VStack {
@@ -51,7 +31,8 @@ struct ContentView: View {
             }
         }
         .task {
-            await viewModel.fetchDogData()
+            await viewModel.fetchDogUrls()
+            urlsDownloaded = true
         }
     }
     

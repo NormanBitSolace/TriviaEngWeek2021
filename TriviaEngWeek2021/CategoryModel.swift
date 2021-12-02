@@ -5,9 +5,6 @@ struct CategoryModel: Identifiable {
     let name: String
 }
 
-
-// https://dog.ceo/api/breeds/image/random
-
 let categories: [CategoryModel] = [
     CategoryModel(id: 9, name: "General Knowledge"),
     CategoryModel(id: 10, name: "Books"),
@@ -34,45 +31,3 @@ let categories: [CategoryModel] = [
     CategoryModel(id: 31, name: "Japanese Anime & Manga"),
     CategoryModel(id: 32, name: "Cartoon & Animations")
 ]
-
-/*
-     private func cellView(category: CategoryModel) -> some View {
-        Button (action: {
-            NavigationLink("Play", destination: PlayView(category: category))
-        }, label: {
-            Text("h")
-            AsyncImage(url: category.url, content: { phase in
-                phase.image
-                    .resizable()
-                    .frame(maxWidth: 100, maxHeight: 100, alignment: .center)
-            }, placeholder: ProgressView())
-    })
-
-     var categories: [Int: String] = [
-        9: "General Knowledge",
-        10: "Entertainment: Books",
-        11: "Entertainment: Film",
-        12: "Entertainment: Music",
-        13: "Entertainment: Musicals & Theatres",
-        14: "Entertainment: Television",
-        15: "Entertainment: Video Games",
-        16: "Entertainment: Board Games",
-        17: "Science & Nature",
-        18: "Science: Computers",
-        19: "Science: Mathematics",
-        20: "Mythology",
-        21: "Sports",
-        22: "Geography",
-        23: "History",
-        24: "Politics",
-        25: "Art",
-        26: "Celebrities",
-        27: "Animals",
-        28: "Vehicles",
-        29: "Entertainment: Comics",
-        30: "Science: Gadgets",
-        31: "Entertainment: Japanese Anime & Manga",
-        32: "Entertainment: Cartoon & Animations"
-    ]
-
- */

@@ -1,10 +1,5 @@
 import Foundation
 
-enum NetworkError: Error {
-    case urlError
-    case corruptDataError
-    case httpError(Int)
-}
 
 @MainActor struct Test {
 
