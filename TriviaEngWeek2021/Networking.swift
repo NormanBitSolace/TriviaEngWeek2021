@@ -12,10 +12,10 @@ class Networking: ObservableObject {
         return url
     }
 
-    func queryURL() -> URL {
+    func queryURL(categoryName: String) -> URL {
         let pictureQuery: [String: String] = [
             "key": apiKey,
-            "q": "book",
+            "q": categoryName,
             "image_type": "photo",
             "per_page": "3"
         ]
@@ -36,7 +36,7 @@ class Networking: ObservableObject {
             let previewURL: String
         }
 
-        let url = self.queryURL()
+        let url = self.queryURL(categoryName: categories[0].name)
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let relatedImageObject = try JSONDecoder().decode(RelatedImageObject.self, from: data)
