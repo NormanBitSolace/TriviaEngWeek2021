@@ -22,7 +22,7 @@ class Networking: ObservableObject {
         return self.createURL().withQueries(pictureQuery)!
     }
 
-    func getRelatedImageUrl() async -> URL {
+    func getRelatedImageUrl() async -> URL? {
         struct RelatedImageObject: Decodable {
             let total, totalHits: Int
             let hits: [Hits]
@@ -37,18 +37,13 @@ class Networking: ObservableObject {
         }
 
         let url = self.queryURL()
-        print("here is the url: \(url)")
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            print("here is the data: \(data)")
-            print("here is the response: \(response)")
+            let (data, _) = try await URLSession.shared.data(from: url)
             let relatedImageObject = try JSONDecoder().decode(RelatedImageObject.self, from: data)
-            let previewURL = URL(string: relatedImageObject.hits.first!.previewURL)!
-            print("here is the relatedImageObject previewURL: \(relatedImageObject.hits.first!.previewURL)")
+            let previewURL = URL(string: relatedImageObject.hits.first!.previewURL)
             return previewURL
-        } catch (let error){
-            print("here is the error: \(error)")
-            return URL(string: "")!
+        } catch {
+            return nil
         }
     }
 
