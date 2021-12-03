@@ -3,7 +3,7 @@ import SwiftUI
 @MainActor
 class ImageViewModel: ObservableObject {
     @Published var randomDogUrls: [URL]?
-    @Published var imageUrl: URL?
+    @Published var imageUrls: [URL]?
     private var networking = Networking()
     
     init() {
@@ -18,7 +18,7 @@ class ImageViewModel: ObservableObject {
     }
     
     func fetchImgUrls() async {
-        imageUrl = await networking.getRelatedImageUrl()
+        imageUrls = await networking.getRelatedImageUrls()
     }
 }
 
@@ -28,7 +28,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            if let _ = viewModel.randomDogUrls, let _ = viewModel.imageUrl {
+            if let _ = viewModel.randomDogUrls, let _ = viewModel.imageUrls {
                 JeopardyView()
                     .environmentObject(viewModel)
             } else {

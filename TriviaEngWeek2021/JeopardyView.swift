@@ -13,7 +13,7 @@ struct JeopardyView: View {
             .padding(.horizontal, 10)
             .navigationTitle("Trivia")
             
-            AsyncImage(url: viewModel.imageUrl) { image in
+            AsyncImage(url: viewModel.imageUrls![0]) { image in
                 image
                     .resizable()
                     .scaledToFill()
@@ -31,18 +31,18 @@ struct JeopardyView: View {
             PlayView(categoryId: category.id, categoryName: category.name)
         } label: {
             VStack {
-//                AsyncImage(url: viewModel.url(forIndex: index)) { image in
-//                    image
-//                        .resizable()
-//                        .scaledToFill()
-//                        .frame(width: 80, height: 80, alignment: .top)
-//                        .cornerRadius(15)
-//                        .clipped()
-//                } placeholder: {
-//                    ProgressView()
-//                }
-//                Text(category.name)
-//                    .font(.system(size: 14, weight: .medium))
+                AsyncImage(url: viewModel.url(forIndex: index)) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 80, height: 80, alignment: .top)
+                        .cornerRadius(15)
+                        .clipped()
+                } placeholder: {
+                    ProgressView()
+                }
+                Text(category.name)
+                    .font(.system(size: 14, weight: .medium))
             }
         }
     }

@@ -7,7 +7,7 @@ enum NetworkError: Error {
 }
 
 class Networking: ObservableObject {
-    func createURL() -> URL {
+    private func createURL() -> URL {
         let url = URL(string: "https://pixabay.com/api/")!
         return url
     }
@@ -47,28 +47,22 @@ class Networking: ObservableObject {
         }
     }
 
-    func getRelatedImageUrl() async -> URL? {
-        struct RelatedImageObject: Decodable {
-            let total, totalHits: Int
-            let hits: [Hits]
-        }
+    func getRelatedImageUrls() async -> [URL]? {
+        return await withTaskGroup(of: URL?.self) { group in
+            var urls = [URL]()
 
-        struct Hits: Codable {
-            let id: Int
-            let pageURL: String
-            let type: String
-            let tags: String
-            let previewURL: String
-        }
+            for _ in 0..<24 {
+                group.addTask {
+                    return await self.getRelatedCategoryImageUrl()
+                }
+            }
 
-        let url = self.queryURL(categoryName: categories[0].name)
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let relatedImageObject = try JSONDecoder().decode(RelatedImageObject.self, from: data)
-            let previewURL = URL(string: relatedImageObject.hits.first!.previewURL)
-            return previewURL
-        } catch {
-            return nil
+            for await url in group {
+                if let url = url {
+                    urls.append(url)
+                }
+            }
+            return urls
         }
     }
 
@@ -128,7 +122,7 @@ class Networking: ObservableObject {
 }
 
 extension URL {
-    func withQueries(_ queries: [String: String]) -> URL? {
+    fileprivate func withQueries(_ queries: [String: String]) -> URL? {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
         components?.queryItems = queries.map { URLQueryItem(name: $0.0, value: $0.1) }
         return components?.url
