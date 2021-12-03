@@ -22,6 +22,31 @@ class Networking: ObservableObject {
         return self.createURL().withQueries(pictureQuery)!
     }
 
+    private func getRelatedCategoryImageUrl() async -> URL? {
+        struct RelatedImageObject: Decodable {
+            let total, totalHits: Int
+            let hits: [Hits]
+        }
+
+        struct Hits: Codable {
+            let id: Int
+            let pageURL: String
+            let type: String
+            let tags: String
+            let previewURL: String
+        }
+
+        let url = queryURL(categoryName: categories[0].name)
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let relatedImageObject = try JSONDecoder().decode(RelatedImageObject.self, from: data)
+            let previewURL = URL(string: relatedImageObject.hits.first!.previewURL)
+            return previewURL
+        } catch {
+            return nil
+        }
+    }
+
     func getRelatedImageUrl() async -> URL? {
         struct RelatedImageObject: Decodable {
             let total, totalHits: Int
