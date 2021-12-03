@@ -7,22 +7,12 @@ struct JeopardyView: View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 4) {
                 ForEach(Array(zip(categories.indices, categories)), id: \.0) { index, category in
-                    cellView(category: category, index: index)
+                    categoryCellView(category: category, index: index)
+//                    cellView(category: category, index: index)
                 }
             }
             .padding(.horizontal, 10)
             .navigationTitle("Trivia")
-            
-            AsyncImage(url: viewModel.imageUrls![0]) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 80, height: 80, alignment: .top)
-                    .cornerRadius(15)
-                    .clipped()
-            } placeholder: {
-                ProgressView()
-            }
         }
     }
 
@@ -32,6 +22,27 @@ struct JeopardyView: View {
         } label: {
             VStack {
                 AsyncImage(url: viewModel.url(forIndex: index)) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 80, height: 80, alignment: .top)
+                        .cornerRadius(15)
+                        .clipped()
+                } placeholder: {
+                    ProgressView()
+                }
+                Text(category.name)
+                    .font(.system(size: 14, weight: .medium))
+            }
+        }
+    }
+
+    func categoryCellView(category: CategoryModel, index: Int) -> some View {
+        NavigationLink {
+            PlayView(categoryId: category.id, categoryName: category.name)
+        } label: {
+            VStack {
+                AsyncImage(url: viewModel.categoryUrl(forIndex: index)) { image in
                     image
                         .resizable()
                         .scaledToFill()

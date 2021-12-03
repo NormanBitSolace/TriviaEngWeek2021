@@ -13,6 +13,14 @@ class ImageViewModel: ObservableObject {
         randomDogUrls![index]
     }
 
+    func categoryUrl(forIndex index: Int) -> URL? {
+        if let imageUrls = imageUrls, index < imageUrls.count {
+            let imageUrl = imageUrls[index]
+            return imageUrl
+        }
+        return nil
+    }
+
     func fetchDogUrls() async {
         randomDogUrls = await networking.getDogUrls()
     }
