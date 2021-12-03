@@ -2,7 +2,7 @@ import SwiftUI
 
 struct JeopardyView: View {
     @EnvironmentObject var viewModel: ImageViewModel
-    let columns = Array(repeating: GridItem(.flexible(minimum: 100, maximum: 100), spacing: 16, alignment: .top), count: 3)
+    let columns = Array(repeating: GridItem(.flexible(minimum: 80, maximum: 100), spacing: 16, alignment: .top), count: 3)
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 4) {
@@ -11,6 +11,7 @@ struct JeopardyView: View {
                 }
             }
             .padding(.horizontal, 10)
+            .navigationTitle("Trivia")
         }
     }
 
@@ -22,8 +23,10 @@ struct JeopardyView: View {
                 AsyncImage(url: viewModel.url(forIndex: index)) { image in
                     image
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
+                        .frame(width: 80, height: 80, alignment: .top)
                         .cornerRadius(15)
+                        .clipped()
                 } placeholder: {
                     ProgressView()
                 }
