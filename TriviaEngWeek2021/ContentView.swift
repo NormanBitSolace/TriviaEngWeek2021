@@ -42,7 +42,7 @@ struct ContentView: View {
     @StateObject var viewModel = ImageViewModel()
     
     var body: some View {
-        VStack {
+        NavigationView {
             if let _ = viewModel.randomDogUrls {
                 JeopardyView()
                     .environmentObject(viewModel)
