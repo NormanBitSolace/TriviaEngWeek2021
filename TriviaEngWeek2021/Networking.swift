@@ -7,6 +7,50 @@ enum NetworkError: Error {
 }
 
 class Networking: ObservableObject {
+    func createURL() -> URL {
+        let url = URL(string: "https://pixabay.com/api/")!
+        return url
+    }
+
+    func queryURL() -> URL {
+        let pictureQuery: [String: String] = [
+            "key": apiKey,
+            "q": "book",
+            "image_type": "photo",
+            "per_page": "3"
+        ]
+        return self.createURL().withQueries(pictureQuery)!
+    }
+
+    func getRelatedImageUrl() async -> URL {
+        struct RelatedImageObject: Decodable {
+            let total, totalHits: Int
+            let hits: [Hits]
+        }
+
+        struct Hits: Codable {
+            let id: Int
+            let pageURL: String
+            let type: String
+            let tags: String
+            let previewURL: String
+        }
+
+        let url = self.queryURL()
+        print("here is the url: \(url)")
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            print("here is the data: \(data)")
+            print("here is the response: \(response)")
+            let relatedImageObject = try JSONDecoder().decode(RelatedImageObject.self, from: data)
+            let previewURL = URL(string: relatedImageObject.hits.first!.previewURL)!
+            print("here is the relatedImageObject previewURL: \(relatedImageObject.hits.first!.previewURL)")
+            return previewURL
+        } catch (let error){
+            print("here is the error: \(error)")
+            return URL(string: "")!
+        }
+    }
 
     func getDogUrls() async -> [URL] {
         return await withTaskGroup(of: String.self) { group in
@@ -60,5 +104,13 @@ class Networking: ObservableObject {
         } else {
             throw NetworkError.corruptDataError
         }
+    }
+}
+
+extension URL {
+    func withQueries(_ queries: [String: String]) -> URL? {
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
+        components?.queryItems = queries.map { URLQueryItem(name: $0.0, value: $0.1) }
+        return components?.url
     }
 }

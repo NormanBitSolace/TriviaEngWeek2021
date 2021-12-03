@@ -20,6 +20,7 @@
 		B4FD21D327580EAA00E8B41A /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD21D227580EAA00E8B41A /* CategoryModel.swift */; };
 		B4FD21D527580FE700E8B41A /* JeopardyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD21D427580FE700E8B41A /* JeopardyView.swift */; };
 		B4FD21D727582B5B00E8B41A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD21D627582B5B00E8B41A /* Networking.swift */; };
+		B4FD21D92759A87D00E8B41A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD21D82759A87D00E8B41A /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B4FD21D227580EAA00E8B41A /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		B4FD21D427580FE700E8B41A /* JeopardyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeopardyView.swift; sourceTree = "<group>"; };
 		B4FD21D627582B5B00E8B41A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		B4FD21D82759A87D00E8B41A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				201906E6275563D700962D1E /* AnsyncDataTest.swift */,
 				B4FD21D227580EAA00E8B41A /* CategoryModel.swift */,
 				201906D427553DAC00962D1E /* ContentView.swift */,
+				B4FD21D82759A87D00E8B41A /* Constants.swift */,
 				B4FD21D427580FE700E8B41A /* JeopardyView.swift */,
 				B4FD21D627582B5B00E8B41A /* Networking.swift */,
 				201906E4275549C400962D1E /* OptionsView.swift */,
@@ -177,6 +180,7 @@
 				201906E5275549C400962D1E /* OptionsView.swift in Sources */,
 				201906ED27556DA300962D1E /* PlayViewModel.swift in Sources */,
 				201906D327553DAC00962D1E /* TriviaEngWeek2021App.swift in Sources */,
+				B4FD21D92759A87D00E8B41A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
